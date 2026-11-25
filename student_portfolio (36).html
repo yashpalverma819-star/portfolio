@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Student Portfolio</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #635bff;
+      --primary-dark: #4b44d6;
+      --accent: #19b7a5;
+      --border: #e7eaf2;
+      --shadow: 0 18px 50px rgba(28, 36, 75, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Inter, "Segoe UI", Arial, sans-serif; color: var(--text);
+      background: radial-gradient(circle at 85% 5%, #e9e8ff 0, transparent 28%), var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92%); margin: auto; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(246,247,251,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(231,234,242,.8); }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 900; letter-spacing: -.6px; font-size: 1.2rem; }
+    .brand span { color: var(--primary); }
+    .nav-links { display: flex; gap: 24px; color: var(--muted); font-size: .92rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--primary); }
+    .hero { padding: 76px 0 58px; display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 48px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); background: #eeedff; border: 1px solid #dedcff; padding: 7px 13px; border-radius: 999px; font-size: .82rem; font-weight: 800; }
+    .eyebrow:before { content: ""; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.7rem); line-height: 1.08; letter-spacing: -2.8px; margin: 18px 0; }
+    h1 span { color: var(--primary); }
+    .intro { max-width: 620px; color: var(--muted); font-size: 1.08rem; margin-bottom: 26px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 19px; border-radius: 12px; font-weight: 800; font-size: .92rem; transition: transform .2s, box-shadow .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: white; background: var(--primary); box-shadow: 0 9px 22px rgba(99,91,255,.24); }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: white; border: 1px solid var(--border); }
+    .profile-wrap { display: flex; justify-content: center; }
+    .profile-card { width: min(100%, 330px); padding: 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; box-shadow: var(--shadow); transform: rotate(2deg); }
+    .profile-photo { width: 100%; aspect-ratio: 1 / 1; border-radius: 21px; object-fit: cover; background: linear-gradient(135deg, #d9d7ff, #c7f4ed); display: block; }
+    .profile-caption { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 16px 3px 2px; }
+    .profile-caption strong { display: block; font-size: 1.05rem; }
+    .profile-caption small { color: var(--muted); }
+    .sparkle { color: var(--primary); font-size: 1.5rem; }
+    section { padding: 56px 0; }
+    .section-heading { margin-bottom: 26px; }
+    .section-heading .kicker { color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; font-size: .75rem; font-weight: 900; }
+    h2 { margin: 5px 0 0; font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -1.2px; line-height: 1.2; }
+    .section-subtitle { color: var(--muted); margin: 10px 0 0; max-width: 650px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; box-shadow: 0 8px 28px rgba(28,36,75,.04); }
+    .card h3 { margin: 0 0 10px; font-size: 1.12rem; }
+    .card p { margin: 0; color: var(--muted); }
+    .quick-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .fact { background: #f8f8ff; border: 1px solid #eeedff; border-radius: 14px; padding: 14px; }
+    .fact small { color: var(--muted); display: block; font-size: .78rem; }
+    .fact strong { display: block; margin-top: 3px; font-size: .94rem; overflow-wrap: anywhere; }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { padding: 9px 14px; background: white; border: 1px solid var(--border); border-radius: 999px; font-size: .88rem; font-weight: 700; box-shadow: 0 4px 12px rgba(28,36,75,.03); }
+    .skill:nth-child(3n) { background: #edfcf9; border-color: #d1f4ec; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project-card { overflow: hidden; padding: 0; }
+    .project-art { height: 145px; display: grid; place-items: center; font-size: 2.8rem; background: linear-gradient(135deg, #e9e7ff, #dff8f3); }
+    .project-card:nth-child(2) .project-art { background: linear-gradient(135deg, #fff0d9, #ffe2e9); }
+    .project-card:nth-child(3) .project-art { background: linear-gradient(135deg, #dff2ff, #e8e4ff); }
+    .project-body { padding: 20px; }
+    .project-body h3 { margin: 0 0 7px; }
+    .project-body p { color: var(--muted); margin: 0 0 15px; font-size: .92rem; }
+    .project-tag { display: inline-block; color: var(--primary); font-size: .75rem; font-weight: 800; background: #f0efff; padding: 5px 9px; border-radius: 7px; }
+    .education-card { display: flex; gap: 18px; align-items: flex-start; }
+    .edu-icon { width: 52px; height: 52px; flex: 0 0 52px; display: grid; place-items: center; border-radius: 15px; background: #eeedff; font-size: 1.5rem; }
+    .education-card h3 { margin: 0 0 4px; }
+    .education-card p { margin: 0; color: var(--muted); }
+    .contact { background: #171c31; color: white; border-radius: 28px; padding: 42px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: center; }
+    .contact .section-heading { margin: 0; }
+    .contact .kicker { color: #a9a4ff; }
+    .contact .section-subtitle { color: #b9bfd0; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    .contact-links a { border: 1px solid #3a4159; background: #222940; padding: 11px 14px; border-radius: 11px; font-size: .86rem; font-weight: 700; }
+    .contact-links a:hover { background: var(--primary); border-color: var(--primary); }
+    footer { padding: 25px 0 35px; text-align: center; color: var(--muted); font-size: .85rem; }
+    footer strong { color: var(--primary); }
+    @media (max-width: 760px) {
+      .nav-links { gap: 12px; font-size: .8rem; }
+      .hero { grid-template-columns: 1fr; padding-top: 48px; gap: 35px; }
+      .profile-card { width: min(78%, 300px); }
+      .about-grid, .contact { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .contact { padding: 30px 24px; }
+      .contact-links { justify-content: flex-start; }
+    }
+    @media (max-width: 430px) {
+      nav { align-items: flex-start; padding: 17px 0; flex-direction: column; }
+      .nav-links { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+      h1 { letter-spacing: -1.7px; }
+      .quick-facts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- STUDENT EDIT AREA: Update only the values inside the student object below. -->
+  <script>
+    const student = {
+      name: "vipul verma ",
+      shortName: "vipul",
+      course: "B.Tech Computer Science",
+      semester: "1st Semester Student",
+      college: "CGC university mohali",
+      city: "jammu , India",
+      email: "yashpalverma819@gmail.com",
+      about: "Hello! I am a first-semester Computer Science student who enjoys learning how technology works and building small projects. I am currently exploring programming, web development, and problem-solving. This portfolio is my first step in sharing my learning journey.",
+      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85",
+      skills: ["C Programming", "HTML", "CSS", "Problem Solving", "Communication", "Teamwork"],
+      projects: [
+        { icon: "🌐", title: "My First Portfolio", description: "A personal website to introduce myself, share my skills, and show my learning journey.", tag: "HTML · CSS" },
+        { icon: "🧮", title: "Simple Calculator", description: "A beginner-friendly calculator that performs basic arithmetic operations.", tag: "C Programming" },
+        { icon: "📚", title: "Student Record", description: "A small program to store and display basic student information.", tag: "Programming Basics" }
+      ],
+      education: "B.Tech in Computer Science and Engineering",
+      graduation: "Expected Graduation: 20XX",
+      github: "https://github.com/",
+      linkedin: "https://www.linkedin.com/",
+      instagram: "https://www.instagram.com/"
+    };
+  </script>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a class="brand" href="#home"><span>✦</span> MyPortfolio</a>
+        <div class="nav-links">
+          <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div>
+        <span class="eyebrow" id="hero-label">1st Semester · CSE</span>
+        <h1>Hi, I'm <span id="hero-name">Your Name</span>.<br />I’m learning to build<br /> <span>cool things.</span></h1>
+        <p class="intro" id="hero-about">A curious Computer Science student exploring programming, technology, and creative problem-solving.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#projects">Explore My Projects ↗</a>
+          <a class="btn btn-secondary" id="email-button" href="mailto:your.email@example.com">✉ Contact Me</a>
+        </div>
+      </div>
+      <div class="profile-wrap">
+        <div class="profile-card">
+          <img class="profile-photo" id="profile-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85" alt="Student profile photo" onerror="this.style.display='none'" />
+          <div class="profile-caption"><div><strong id="photo-name">Your Name</strong><small id="photo-course">Computer Science Student</small></div><span class="sparkle">✦</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-heading"><div class="kicker">A little about me</div><h2>Curious mind. Beginner's journey.</h2><p class="section-subtitle">I believe every expert was once a beginner. Here’s a little introduction and what I’m working toward.</p></div>
+      <div class="about-grid">
+        <article class="card"><h3>👋 My Introduction</h3><p id="about-text"></p></article>
+        <article class="card"><h3>✨ Quick Facts</h3><div class="quick-facts">
+          <div class="fact"><small>Course</small><strong id="fact-course"></strong></div>
+          <div class="fact"><small>Semester</small><strong id="fact-semester"></strong></div>
+          <div class="fact"><small>College</small><strong id="fact-college"></strong></div>
+          <div class="fact"><small>Location</small><strong id="fact-city"></strong></div>
+        </div></article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-heading"><div class="kicker">What I'm learning</div><h2>My skills</h2><p class="section-subtitle">These are the tools and skills I’m learning and practicing right now.</p></div>
+      <div class="skills" id="skills-list"></div>
+    </section>
+
+    <section id="projects">
+      <div class="section-heading"><div class="kicker">Learning by doing</div><h2>My projects</h2><p class="section-subtitle">Small projects, big learning. I’ll keep adding new work as I grow.</p></div>
+      <div class="project-grid" id="projects-list"></div>
+    </section>
+
+    <section id="education">
+      <div class="section-heading"><div class="kicker">My academics</div><h2>Education</h2></div>
+      <article class="card education-card"><div class="edu-icon">🎓</div><div><h3 id="education-course"></h3><p id="education-college"></p><p id="education-year"></p></div></article>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <div class="section-heading"><div class="kicker">Let's connect</div><h2>Have a project idea?<br />Let's learn together.</h2><p class="section-subtitle">I’m always happy to connect with fellow students, learn new things, and collaborate on beginner-friendly projects.</p></div>
+        <div class="contact-links" id="contact-links"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">Made with curiosity by <strong id="footer-name">Your Name</strong> · <span id="footer-year"></span></div></footer>
+
+  <script>
+    // The code below automatically fills the portfolio using the student object.
+    const byId = (id) => document.getElementById(id);
+    byId("hero-label").textContent = `${student.semester} · CSE`;
+    byId("hero-name").textContent = student.shortName || student.name;
+    byId("hero-about").textContent = student.about;
+    byId("about-text").textContent = student.about;
+    byId("photo-name").textContent = student.name;
+    byId("photo-course").textContent = student.course;
+    byId("profile-photo").src = student.photo;
+    byId("fact-course").textContent = student.course;
+    byId("fact-semester").textContent = student.semester;
+    byId("fact-college").textContent = student.college;
+    byId("fact-city").textContent = student.city;
+    byId("education-course").textContent = student.education;
+    byId("education-college").textContent = student.college;
+    byId("education-year").textContent = student.graduation;
+    byId("email-button").href = `mailto:${student.email}`;
+    byId("email-button").textContent = "✉ Contact Me";
+    byId("footer-name").textContent = student.name;
+    byId("footer-year").textContent = new Date().getFullYear();
+
+    byId("skills-list").innerHTML = student.skills.map(skill => `<span class="skill">${escapeHTML(skill)}</span>`).join("");
+    byId("projects-list").innerHTML = student.projects.map(project => `
+      <article class="card project-card">
+        <div class="project-art">${escapeHTML(project.icon)}</div>
+        <div class="project-body"><h3>${escapeHTML(project.title)}</h3><p>${escapeHTML(project.description)}</p><span class="project-tag">${escapeHTML(project.tag)}</span></div>
+      </article>`).join("");
+    const links = [
+      ["GitHub ↗", student.github], ["LinkedIn ↗", student.linkedin], ["Instagram ↗", student.instagram]
+    ].filter(item => item[1] && !item[1].endsWith("/"));
+    byId("contact-links").innerHTML = links.map(([label, url]) => `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`).join("");
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"}[character]));
+    }
+  </script>
+</body>
+</html>
